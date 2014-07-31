@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * Implements hook_block_info
+ */
+function first_module_block_info () {
+  $blocks['quote_for_the_day'] = array(
+    'info' => t('Things to ponder'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view
+ */  
+function first_module_block_view ($delta = '') {
+  $blocks = array();
+  $my_title = 'Be Ready';
+  $my_content = 'Always have your 72-hour kit.  The kit contains food good for 3 days.';
+  
+  switch ($delta) {
+	case 'quote_for_the_day' : 
+	  $blocks['subject'] = t($my_title);
+	  $blocks['content'] = t($my_content);
+	  break;    
+  }
+  return $blocks;
+}
+
+/**
+ * Implements hook_menu
+ */  
+function first_module_menu() {
+  $items['Key Statistics'] = array(
+    'title' => '2014 Key Energy Statistics',
+    'description' => 'Key Energy Statistics of the Philippines - FY 2014',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('key_energy_statistics'),
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => TRUE, 
+  );
+  return $items;
+}
+
+function key_energy_statistics($form, &$form_state) {
+  $form['key_statistics'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Subject'),
+    '#default_value' => variable_get('key_statistics', '2014'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+  $form = system_settings_form($form);
+  return $form;
+}
+
+function first_module_init() {
+  $announcement = "Reminder: Drupal Apprenticeship Graduation on 2 August 2014";
+  drupal_add_js(array(
+    'first_module' => array(
+      'announcement' => $announcement,
+     )), 'setting'
+  );
+}

@@ -1,0 +1,4 @@
+name = location_map
+description = DOE's Location Map
+core = 7.x
+package = Greg's Modules

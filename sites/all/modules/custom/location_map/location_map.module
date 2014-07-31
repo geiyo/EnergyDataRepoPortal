@@ -1,0 +1,6 @@
+<?php
+
+function location_map_init() {
+  drupal_add_js(drupal_get_path('module', 'location_map') .'/js/loadmap.js');
+} 
+?>
